@@ -14,7 +14,7 @@
  */
 
 
-#include "../common/book.h"
+#include "book.h"
 #include <stdlib.h> //for random numbers
 #include <stdio.h>
 
