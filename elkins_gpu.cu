@@ -36,6 +36,22 @@ int main( void ) {
     float deltaX[N], deltaY[N], deltaZ[N];
     float *dev_x, *dev_y, *dev_z;
     float *dev_deltaX, *dev_deltaY, *dev_deltaZ;
+    
+    //variables for velocity of each atom
+    float r[N], theta[N], psi[N];
+    float *dev_r, *dev_theta, *dev_psi;
+    
+    //using argon in this case -- need to generalize later
+    float temp = 298; //kelvin
+    float mass = 6.634E-26; //kilograms
+    float velocity;
+    float position;
+    float probability;
+
+    float k = 1.3806488E-23; //boltzmann's constant
+    float pi = 3.14159;
+    
+
     int t = 13;
 
     //setting up file to later write in
@@ -53,17 +69,47 @@ int main( void ) {
     HANDLE_ERROR( cudaMalloc( (void**)&dev_deltaX, N * sizeof(float) ) );
     HANDLE_ERROR( cudaMalloc( (void**)&dev_deltaY, N * sizeof(float) ) );
     HANDLE_ERROR( cudaMalloc( (void**)&dev_deltaZ, N * sizeof(float) ) );
-    
+    HANDLE_ERROR( cudaMalloc( (void**)&dev_r, N * sizeof(float) ) );
+    HANDLE_ERROR( cudaMalloc( (void**)&dev_theta, N * sizeof(float) ) );
+    HANDLE_ERROR( cudaMalloc( (void**)&dev_psi, N * sizeof(float) ) );
 
-    // fill the arrays 'x,' 'y', 'z,' 'deltaX,' 'deltaY,' and 'deltaZ' on the CPU
-    for (int i=1; i<N; i++) {
-    	x[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
-	y[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
-	z[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
-	deltaX[i] = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX))+0.01;
-	deltaY[i] = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX))+0.01;
-	deltaZ[i] = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX))+0.01;
-    }
+    //average of velocity distribution
+    velocity = srqt((2*k*temp)/(mass));
+
+    //upper and lower limit of distribution
+    float upperLim = (2*(velocity)); //need to double check this equation
+    float lowerLim = 0;   
+
+    //to make sure we don't use the same velocity
+    int check = 0;
+    
+    //find probability of velocity for all atoms 
+    for (int i = lowerLim; i < upperLim; i+7) {
+
+	//find r, theta, and psi -- probability equation
+	probability = (sqrt(mass/(2*pi*k*temp))^3)*(4*pi*(velocity^2)*e^(-((mass*(velocity^2)))/(2*k*temp));
+
+	//now, with probabilities, initialize velocity and position 
+	// fill the arrays 'x,' 'y', 'z,' 'deltaX,' 'deltaY,' and 'deltaZ' on the CPU
+    	//fill in arrays for randomized r, omega, and psi, based on probability -- Boltzmann dist
+	//right now, with 10 atoms, will be error. increase atoms, decrease error.	
+   	for (int j=0; j<(probability*N); j++) {
+    	    x[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
+	    y[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
+	    z[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/5);
+
+
+	    deltaX[i] = r*(sin(theta))*(cos(psi)); //r sine theta cosine psi 
+	    deltaY[i] = r*(sin(theta))*(sin(psi)); //r sine theta sine psi
+	    deltaZ[i] = r*(cos(theta)); //r cosine theta
+   	}
+
+
+
+	check++;
+    }	 	
+
+   
 
     // copy the arrays 'x,' 'y', 'z,' 'deltaX,' 'deltaY,' and 'deltaZ' to the GPU
     HANDLE_ERROR( cudaMemcpy( dev_x, x, N * sizeof(float),
