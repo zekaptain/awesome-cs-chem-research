@@ -27,7 +27,17 @@ int main() {
   double temp = 298; //kelvin
   double pi = 3.14159;
   double avgVelocity = 0;
-  double velocity[N],velX[N],velY[N],velZ[N],x[N],y[N],z[N],theta[N],phi[N];
+  //double velocity[N],velX[N],velY[N],velZ[N],x[N],y[N],z[N],theta[N],phi[N];
+  double *velocity, *velX, *velY, *velZ, *x, *y, *z, *theta, *phi;
+  velocity = new double[N];
+  velX = new double[N];
+  velY = new double[N];
+  velZ = new double[N];
+  x = new double[N];
+  y = new double[N];
+  z = new double[N];
+  theta = new double[N];
+  phi = new double[N];
   int atomIndexL = 0;
   double velIndex = 0;
   double width = 0;
@@ -129,7 +139,11 @@ int main() {
                 cout << "Atom Velocity " << velocity[atomIndex] << endl;
                 cout<< velX[atomIndex] << " " << velY[atomIndex] << " " << velZ[atomIndex] << endl;
 
-         
+		//we use int ba[115000]
+		//use instead int *ba 
+		//ba = new int [1500000]
+		//this will greatly increase our # atoms we can use
+		//from using stack to using heap
 
     }
 

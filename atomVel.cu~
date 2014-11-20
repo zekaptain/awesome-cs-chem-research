@@ -18,7 +18,11 @@
 
 #define N 1000000
 
+//#include "atom.cpp"
+
 using namespace std;
+
+
 
 int main() {
 
@@ -26,7 +30,7 @@ int main() {
   float k = 1.3806488E-23; //m^2 kg s^-2 K^-1
   double temp = 298; //kelvin
   double pi = 3.14159;
-  double avgVelocity = 0;
+  double avgvelocity = 0;
   double velocity[N],velX[N],velY[N],velZ[N],x[N],y[N],z[N],theta[N],phi[N];
   int atomIndexL = 0;
   double velIndex = 0;
@@ -35,11 +39,11 @@ int main() {
   int atomIndex=0;
 
  
-  //Set range for possible values (0-2*average or +-3 standard deviations)
+ //Set range for possible values (0-2*average or +-3 standard deviations)
 
-  avgVelocity = (sqrt(2*k*temp/mass))*(2/(sqrt(pi)));
+  avgvelocity = (sqrt(2*k*temp/mass))*(2/(sqrt(pi)));
 
-  cout<<"Average velocity" << avgVelocity<< endl;
+  cout<<"Average velocity" << avgvelocity<<endl;
 
 
   mostProbVel = sqrt (2*k*temp/mass);
@@ -93,7 +97,7 @@ int main() {
 
 		atomIndex++;
 
-    	}
+    }
     }
 
   velIndex = mostProbVel;
@@ -107,7 +111,7 @@ int main() {
 
 
 
-             	x[atomIndex]= static_cast <double> (rand()) / static_cast <double> (RAND_MAX/500);
+                x[atomIndex]= static_cast <double> (rand()) / static_cast <double> (RAND_MAX/500);
                 y[atomIndex] = static_cast <double> (rand()) / static_cast <double> (RAND_MAX/500);
                 z[atomIndex] = static_cast <double> (rand()) / static_cast <double> (RAND_MAX/500);
                 theta[atomIndex] = static_cast<double>(rand()) / static_cast<double>(RAND_MAX/(M_PI));
@@ -158,23 +162,22 @@ int main() {
   // cout<< velX[atomIndex] << " " << velY[atomIndex] << " " << velZ[atomIndex] << endl;
 
 
-  /* velocity[N-1]=velIndex;
-  x[N-1]= static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
-  y[N-1] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
-  z[N-1] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
-  theta[N-1] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX/(M_PI));
-  phi[N-1] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX/(2*M_PI));
-  velX[N-1]=velocity[N-1]*sin(theta[N-1])*cos(phi[N-1]);
-  velY[N-1]=velocity[N-1]*sin(theta[N-1])*sin(phi[N-1]);
-  velZ[N-1]=velocity[N-1]*cos(theta[N-1]);
-  cout <<"Atom Index " << atomIndex << endl;
-  cout << "Atom Velocity " << velocity[atomIndex] << endl;
-  cout<< velX[atomIndex] << " " << velY[atomIndex] << " " << velZ[atomIndex] << endl;
-  */
-
+/* velocity[N-1]=velIndex;
+                x[N-1]= static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
+                y[N-1] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
+                z[N-1] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/500);
+                theta[N-1] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX/(M_PI));
+                phi[N-1] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX/(2*M_PI));
+                velX[N-1]=velocity[N-1]*sin(theta[N-1])*cos(phi[N-1]);
+                velY[N-1]=velocity[N-1]*sin(theta[N-1])*sin(phi[N-1]);
+                velZ[N-1]=velocity[N-1]*cos(theta[N-1]);
+                cout <<"Atom Index " << atomIndex << endl;
+                cout << "Atom Velocity " << velocity[atomIndex] << endl;
+                cout<< velX[atomIndex] << " " << velY[atomIndex] << " " << velZ[atomIndex] << endl;
+*/
   double avgCheck = 0;
 
-  //check out average
+//check out average
 
   for(int j=0; j<atomIndex; j++){
 
@@ -186,6 +189,8 @@ int main() {
 
   cout << "Average: " <<  avgCheck << endl; 
 
-  return 0;
+ 
+
+return 0;
 
 }
