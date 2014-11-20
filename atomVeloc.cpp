@@ -91,7 +91,7 @@ int main() {
   outputFile.open("input.txt");
   outputFile << N << endl;
   outputFile << 10000 << endl; //arbitrary, really
-  outputFile << 10E-14 << endl; //also arbitrary
+  outputFile << 10E-16 << endl; //also arbitrary --timestep
   outputFile << defBox(temp) << endl;
   outputFile << mass << endl;
   outputFile.close();
