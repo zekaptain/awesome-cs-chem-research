@@ -137,6 +137,9 @@ int main() {
 		outputFileTwo << x[atomIndex] << " ";
 		outputFileTwo << y[atomIndex] << " ";
 		outputFileTwo << z[atomIndex] << " ";
+		outputFileTwo << velX[atomIndex] << " ";
+		outputFileTwo << velY[atomIndex] << " ";
+		outputFileTwo << velZ[atomIndex] << endl;
 		
 
 		atomIndex++;
