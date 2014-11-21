@@ -16,7 +16,7 @@
 #include <cfloat>
 #include <string>
 
-#define N 10000
+#define N 100
 
 using namespace std;
 
@@ -90,7 +90,7 @@ int main() {
   ofstream outputFile;
   outputFile.open("input.txt");
   outputFile << N << endl;
-  outputFile << 5000 << endl; //arbitrary, really
+  outputFile << 50000 << endl; //arbitrary, really
   outputFile << 10E-16 << endl; //also arbitrary --timestep
   outputFile << defBox(temp) << endl;
   outputFile << mass << endl;
